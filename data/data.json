@@ -1,41 +1,41 @@
 [
   {
     "id": 1,
-    "course": "DevOps Masterclass",
-    "instructor": "TuteDude Mentor",
-    "duration": "12 Weeks",
+    "course": "DevOps Masterclass (Advanced)",
+    "instructor": "TuteDude Senior Mentor",
+    "duration": "14 Weeks",
     "topics": [
-      "Linux Basics",
-      "Bash Scripting",
-      "Git & GitHub",
-      "Flask Web Development",
-      "MongoDB Atlas",
-      "Docker & Containers",
-      "CI/CD Pipelines",
-      "Kubernetes"
+      "Linux & Shell Scripting",
+      "Git & Advanced GitHub Workflow",
+      "Flask Microservices & REST APIs",
+      "MongoDB Atlas & Aggregations",
+      "Docker, Docker Compose & Container Security",
+      "CI/CD with GitHub Actions",
+      "Kubernetes Cluster Management",
+      "Terraform & Infrastructure as Code"
     ]
   },
   {
     "id": 2,
-    "course": "Cloud & Containerization",
-    "instructor": "DevOps Specialist",
-    "duration": "8 Weeks",
+    "course": "Cloud Engineering & DevSecOps",
+    "instructor": "Cloud Solutions Architect",
+    "duration": "10 Weeks",
     "topics": [
-      "Docker Compose",
-      "AWS Fundamentals",
-      "Terraform",
-      "Ansible"
+      "AWS & Azure Cloud Architecture",
+      "Infrastructure as Code (Terraform)",
+      "Security Automation & Vault",
+      "Prometheus & Grafana Observability"
     ]
   },
   {
     "id": 3,
-    "course": "Python for Automation",
-    "instructor": "Python Lead",
-    "duration": "6 Weeks",
+    "course": "Full Stack Python & Microservices",
+    "instructor": "Principal Python Engineer",
+    "duration": "8 Weeks",
     "topics": [
-      "Python Scripting",
-      "REST APIs with Flask",
-      "Automation & Testing"
+      "Asynchronous Python & FastAPI",
+      "Flask Enterprise APIs",
+      "Microservices Architecture & Messaging Queues"
     ]
   }
 ]
