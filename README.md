@@ -2,7 +2,8 @@
 
 **Student Name**: Shubhajit Paul  
 **Course**: DevOps Masterclass (TuteDude)  
-**Assignment**: Flask & MongoDB
+**Assignment**: Git & GitHub DevOps Assignment
+**GitHub Repository Link**: [https://github.com/shubhajit-paul006/Tutedude.git](https://github.com/shubhajit-paul006/Tutedude.git)
 
 ---
 
