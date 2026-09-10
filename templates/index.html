@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset=UTF-8>
+  <meta name=viewport content=width=device-width, initial-scale=1.0>
+  <title>Student Registration | Flask & MongoDB Atlas</title>
+  <link rel=stylesheet href={{ url_for('static', filename='style.css') }}>
+</head>
+<body>
+  <div class=container>
+    <div class=header>
+      <span class=badge>DevOps Assignment</span>
+      <h1 class=title>Flask & MongoDB Atlas</h1>
+      <p class=subtitle>Submit details to store in MongoDB Atlas database</p>
+    </div>
+
+    <!-- Error Display (without redirection) -->
+    {% if error %}
+    <div class=alert-error role=alert>
+      <span>&#9888;</span>
+      <div>{{ error }}</div>
+    </div>
+    {% endif %}
+
+    <form action={{ url_for('submit_form') }} method=POST>
+      <div class=form-group>
+        <label for=name>Full Name *</label>
+        <input 
+          type=text 
+          id=name 
+          name=name 
+          placeholder=e.g. Shubhajit Paul 
+          value={{ form_data.name if form_data else '' }} 
+          required
+        >
+      </div>
+
+      <div class=form-group>
+        <label for=email>Email Address *</label>
+        <input 
+          type=email 
+          id=email 
+          name=email 
+          placeholder=e.g. shubhajit@example.com 
+          value={{ form_data.email if form_data else '' }} 
+          required
+        >
+      </div>
+
+      <div class=form-group>
+        <label for=course>Select Course *</label>
+        <select id=course name=course required>
+          <option value=">-- Choose Course --</option>
+ <option value=DevOps Masterclass {% if form_data and form_data.course == 'DevOps Masterclass' %}selected{% endif %}>DevOps Masterclass</option>
+ <option value=Cloud & Containerization {% if form_data and form_data.course == 'Cloud & Containerization' %}selected{% endif %}>Cloud & Containerization</option>
+ <option value=Python for Automation {% if form_data and form_data.course == 'Python for Automation' %}selected{% endif %}>Python for Automation</option>
+ <option value=Kubernetes & CI/CD {% if form_data and form_data.course == 'Kubernetes & CI/CD' %}selected{% endif %}>Kubernetes & CI/CD</option>
+ </select>
+ </div>
+
+ <div class=form-group>
+ <label for=message>Message / Notes (Optional)</label>
+ <textarea 
+ id=message 
+ name=message 
+ rows=3 
+ placeholder=Any special remarks or questions...
+ >{{ form_data.message if form_data else '' }}</textarea>
+ </div>
+
+ <button type=submit class=btn-submit>Submit to MongoDB Atlas</button>
+ </form>
+
+ <div class=nav-links>
+ <a href=/api target=_blank>&#128279; View JSON API (/api)</a>
+ <a href=https://www.mongodb.com/cloud/atlas target=_blank>&#9729; MongoDB Atlas</a>
+ </div>
+ </div>
+</body>
+</html>
