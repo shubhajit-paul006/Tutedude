@@ -1,13 +1,41 @@
 [
   {
     "id": 1,
-    "course": "DevOps Masterclass (Mainline Track)",
-    "instructor": "Mainline Instructor",
+    "course": "DevOps Masterclass (Advanced)",
+    "instructor": "TuteDude Senior Mentor",
+    "duration": "14 Weeks",
+    "topics": [
+      "Linux & Shell Scripting",
+      "Git & Advanced GitHub Workflow",
+      "Flask Microservices & REST APIs",
+      "MongoDB Atlas & Aggregations",
+      "Docker, Docker Compose & Container Security",
+      "CI/CD with GitHub Actions",
+      "Kubernetes Cluster Management",
+      "Terraform & Infrastructure as Code"
+    ]
+  },
+  {
+    "id": 2,
+    "course": "Cloud Engineering & DevSecOps",
+    "instructor": "Cloud Solutions Architect",
     "duration": "10 Weeks",
     "topics": [
-      "Linux Core",
-      "Git Basics",
-      "Docker Containers"
+      "AWS & Azure Cloud Architecture",
+      "Infrastructure as Code (Terraform)",
+      "Security Automation & Vault",
+      "Prometheus & Grafana Observability"
+    ]
+  },
+  {
+    "id": 3,
+    "course": "Full Stack Python & Microservices",
+    "instructor": "Principal Python Engineer",
+    "duration": "8 Weeks",
+    "topics": [
+      "Asynchronous Python & FastAPI",
+      "Flask Enterprise APIs",
+      "Microservices Architecture & Messaging Queues"
     ]
   }
 ]
