@@ -1,41 +1,13 @@
 [
   {
     "id": 1,
-    "course": "DevOps Masterclass",
-    "instructor": "TuteDude Mentor",
-    "duration": "12 Weeks",
+    "course": "DevOps Masterclass (Mainline Track)",
+    "instructor": "Mainline Instructor",
+    "duration": "10 Weeks",
     "topics": [
-      "Linux Basics",
-      "Bash Scripting",
-      "Git & GitHub",
-      "Flask Web Development",
-      "MongoDB Atlas",
-      "Docker & Containers",
-      "CI/CD Pipelines",
-      "Kubernetes"
-    ]
-  },
-  {
-    "id": 2,
-    "course": "Cloud & Containerization",
-    "instructor": "DevOps Specialist",
-    "duration": "8 Weeks",
-    "topics": [
-      "Docker Compose",
-      "AWS Fundamentals",
-      "Terraform",
-      "Ansible"
-    ]
-  },
-  {
-    "id": 3,
-    "course": "Python for Automation",
-    "instructor": "Python Lead",
-    "duration": "6 Weeks",
-    "topics": [
-      "Python Scripting",
-      "REST APIs with Flask",
-      "Automation & Testing"
+      "Linux Core",
+      "Git Basics",
+      "Docker Containers"
     ]
   }
 ]
