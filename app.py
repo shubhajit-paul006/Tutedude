@@ -138,6 +138,45 @@ def submit_form():
 def success():
     return render_template('success.html')
 
+
+# -------------------------------------------------------------
+# Task 3: Backend API /submittodoitem (master_2)
+# Accepts itemName and itemDescription via POST and stores in MongoDB
+# -------------------------------------------------------------
+@app.route('/submittodoitem', methods=['POST'])
+def submit_todo_item():
+    data = request.get_json(silent=True) or request.form
+    item_name = data.get('itemName', '').strip()
+    item_desc = data.get('itemDescription', '').strip()
+    item_id = data.get('itemID', '').strip()
+    item_uuid = data.get('itemUUID', '').strip()
+    item_hash = data.get('itemHash', '').strip()
+
+    if not item_name or not item_desc:
+        if request.is_json:
+            return jsonify({'status': 'error', 'message': 'both itemName and itemDescription are required'}), 400
+        return render_template('todo.html', error='Both Item Name and Item Description are required.'), 400
+
+    doc = {
+        'itemName': item_name,
+        'itemDescription': item_desc,
+        'itemID': item_id,
+        'itemUUID': item_uuid,
+        'itemHash': item_hash,
+        'created_at': datetime.utcnow()
+    }
+
+    try:
+        col = get_db_collection()
+        res = col.insert_one(doc)
+        if request.is_json:
+            return jsonify({'status': 'success', 'message': 'Todo item submitted successfully', 'id': str(res.inserted_id)}), 201
+        return render_template('todo.html', success='To-Do item saved successfully to MongoDB Atlas!'), 200
+    except Exception as e:
+        if request.is_json:
+            return jsonify({'status': 'warning_local', 'message': f'Database connection offline: {str(e)}', 'data': doc}), 200
+        return render_template('todo.html', error=f'Database Error: {str(e)}'), 500
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     debug = os.getenv('DEBUG', 'True').lower() in ('true', '1', 'yes')
