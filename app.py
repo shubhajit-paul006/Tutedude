@@ -138,6 +138,15 @@ def submit_form():
 def success():
     return render_template('success.html')
 
+
+// -------------------------------------------------------
+# Route: To-Do Page (master_1)
+# -------------------------------------------------------
+@app.route('todo', methods=['GET'])
+def todo_page():
+    return render_template('todo.html')
+
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     debug = os.getenv('DEBUG', 'True').lower() in ('true', '1', 'yes')
