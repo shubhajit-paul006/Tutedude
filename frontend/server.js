@@ -12,7 +12,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', async (req, res) => {
@@ -30,7 +30,8 @@ app.post('/submit', async (req, res) => {
   const formData = { name, email, course, message };
 
   try {
-    const response = await axios.post(`${backendUrl}/submit`, formData, {
+    const targetUrl = BACKEND_URL + '/submit';
+    const response = await axios.post(targetUrl, formData, {
       headers: { 'Content-Type': 'application/json' },
       timeout: 5000
     });
@@ -49,9 +50,9 @@ app.post('/submit', async (req, res) => {
       });
     }
   } catch (err) {
-    const errorMsg = err.response&&err.response.data&&err.response.data.message
+    const errorMsg = err.response && err.response.data && err.response.data.message
       ? err.response.data.message
-      : `Unnable to connect to Flask backend at ${BACKEND_URL} (${err.message})`;
+      : 'Unable to connect to Flask backend at ' + BACKEND_URL + ' (' + err.message + ')';
 
     return res.render('index', {
       error: errorMsg,
@@ -68,6 +69,6 @@ app.get('health', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`[Frontend] Server running on http://localhost:${PORT}`);
-  console.log(`[Frontend] Connected to Flask backend at: ${BACKEND_URL}`);
+  console.log('[Frontend] Server running on http://localhost:' + PORT);
+  console.log('[Frontend] Connected to Flask backend at: ' + BACKEND_URL);
 });
