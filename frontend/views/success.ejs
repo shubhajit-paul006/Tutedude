@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submission Successful | Docker App</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container success-container">
+    <div class="success-icon">&#10004;</div>
+    <h1 class="success-message"><= message %></h1>
+    <p class="success-desc">Your request was successfully received by Node.js Express frontend, forwarded to Flask backend, processed, and stored!</p>
+
+    <% if (data) { %>
+    <div style="text-align: left; background: #f9fafb; padding: 16px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+      <p style="margin-bottom: 8px;"><strong>Name:</strong> <= data.name || '-' %></p>
+      <p style="margin-bottom: 8px;"><strong>Email:</strong> <= data.email || '-' %></p>
+      <p style="margin-bottom: 8px;"><strong>Course:</strong> <= data.course || '-' %></p>
+      <p><strong>Submitted Via:</strong> Node.js/Express Frontend -&gt; Flask Backend (Docker Compose Network)</p>
+    </div>
+    <% } %>
+
+    <a href="/" class="btn-secondary">&larr; Submit Another Response</a>
+  </div>
+</body>
+</html>
