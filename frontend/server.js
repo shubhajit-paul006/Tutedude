@@ -64,7 +64,7 @@ app.post('/submit', async (req, res) => {
 });
 
 
-app.get('health', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({ status: 'Frontend is running', port: PORT, backend: BACKEND_URL });
 });
 

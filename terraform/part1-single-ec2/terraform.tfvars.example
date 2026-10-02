@@ -1,5 +1,6 @@
-﻿aws_region = ap-south-1
-project_name = tutedude-fullstack
-environment = production
-instance_type = t2.micro
-admin_cidr = 0.0.0.0/0
+aws_region         = "ap-south-1"
+project_name       = "tutedude-part1-single-ec2"
+environment        = "production"
+instance_type      = "t2.micro"
+ami_id             = "ami-03f4878755434977f"
+public_key_openssh = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKeyForAssignmentSubmissionOnly tutedude@devops"

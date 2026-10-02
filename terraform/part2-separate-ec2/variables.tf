@@ -1,47 +1,47 @@
-﻿variable aws_region {
-  description = AWS region
+variable "aws_region" {
+  description = "AWS deployment region"
   type        = string
-  default     = ap-south-1
+  default     = "ap-south-1"
 }
 
-variable project_name {
-  description = Project name prefix
+variable "project_name" {
+  description = "Project name identifier"
   type        = string
-  default     = tutedude-separate-ec2
+  default     = "tutedude-part2-multi-tier"
 }
 
-variable environment {
-  description = Deployment environment
+variable "environment" {
+  description = "Deployment environment"
   type        = string
-  default     = production
+  default     = "production"
 }
 
-variable vpc_cidr {
-  description = CIDR block for the custom VPC
+variable "instance_type" {
+  description = "EC2 instance size"
   type        = string
-  default     = 10.0.0.0/16
+  default     = "t2.micro"
 }
 
-variable public_subnet_cidr {
-  description = CIDR block for the public subnet
+variable "ami_id" {
+  description = "Ubuntu 22.04 LTS AMI ID for ap-south-1"
   type        = string
-  default     = 10.0.1.0/24
+  default     = "ami-03f4878755434977f"
 }
 
-variable instance_type {
-  description = EC2 instance type
+variable "public_key_openssh" {
+  description = "SSH public key content for EC2 instance access"
   type        = string
-  default     = t2.micro
+  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKeyForAssignmentSubmissionOnly tutedude@devops"
 }
 
-variable ami_id {
-  description = Ubuntu 22.04 LTS AMI ID
+variable "vpc_cidr" {
+  description = "CIDR block for the custom VPC"
   type        = string
-  default     = ami-03f4878755434977f
+  default     = "10.0.0.0/16"
 }
 
-variable admin_cidr {
-  description = CIDR block for admin SSH access
+variable "public_subnet_cidr" {
+  description = "CIDR block for the public subnet"
   type        = string
-  default     = 0.0.0.0/0
+  default     = "10.0.1.0/24"
 }

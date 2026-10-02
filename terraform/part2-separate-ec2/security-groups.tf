@@ -1,89 +1,79 @@
-﻿# ========================================================
-# Terraform Part 2: Security Groups (security-groups.tf)
-# ========================================================
-
-# Frontend Security Group
-resource aws_security_group frontend_sg {
-  name        = -frontend-sg
-  description = Public access to Express frontend and SSH
+# Security Group: Frontend (Public Facing)
+resource "aws_security_group" "frontend_sg" {
+  name        = "${var.project_name}-frontend-sg"
+  description = "Allow HTTP and SSH access to frontend"
   vpc_id      = aws_vpc.custom_vpc.id
 
   ingress {
-    description = HTTP Web Access
-    from_port   = 80
-    to_port     = 80
-    protocol    = tcp
-    cidr_blocks = [0.0.0.0/0]
-  }
-
-  ingress {
-    description = NodePort / Custom Port 3000
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = tcp
-    cidr_blocks = [0.0.0.0/0]
-  }
-
-  ingress {
-    description = SSH Admin Access
+    description = "Allow SSH from anywhere"
     from_port   = 22
     to_port     = 22
-    protocol    = tcp
-    cidr_blocks = [var.admin_cidr]
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow HTTP traffic on port 80"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow Node.js direct access on port 3000"
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
-    protocol    = -1
-    cidr_blocks = [0.0.0.0/0]
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name        = -frontend-sg
+    Name        = "${var.project_name}-frontend-sg"
     Environment = var.environment
   }
 }
 
-# Backend Security Group (Restricted communication)
-resource aws_security_group backend_sg {
-  name        = -backend-sg
-  description = Allow port 5000 from frontend security group and SSH
+# Security Group: Backend (Private / Restricted)
+resource "aws_security_group" "backend_sg" {
+  name        = "${var.project_name}-backend-sg"
+  description = "Allow access to backend only from frontend security group and SSH"
   vpc_id      = aws_vpc.custom_vpc.id
 
   ingress {
-    description     = Flask API from Frontend SG
+    description     = "Allow Flask API from Frontend SG only"
     from_port       = 5000
     to_port         = 5000
-    protocol        = tcp
+    protocol        = "tcp"
     security_groups = [aws_security_group.frontend_sg.id]
   }
 
   ingress {
-    description = Flask API direct testing (optional)
-    from_port   = 5000
-    to_port     = 5000
-    protocol    = tcp
-    cidr_blocks = [0.0.0.0/0]
-  }
-
-  ingress {
-    description = SSH Admin Access
+    description = "Allow SSH for administration"
     from_port   = 22
     to_port     = 22
-    protocol    = tcp
-    cidr_blocks = [var.admin_cidr]
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
-    protocol    = -1
-    cidr_blocks = [0.0.0.0/0]
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name        = -backend-sg
+    Name        = "${var.project_name}-backend-sg"
     Environment = var.environment
   }
 }

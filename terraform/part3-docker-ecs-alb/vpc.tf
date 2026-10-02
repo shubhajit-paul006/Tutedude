@@ -1,67 +1,73 @@
-﻿# ========================================================
-# Terraform Part 3: Multi-AZ VPC (vpc.tf)
-# ========================================================
-
-resource aws_vpc ecs_vpc {
+# VPC for Multi-AZ ECS deployment
+resource "aws_vpc" "ecs_vpc" {
   cidr_block           = var.vpc_cidr
-  enable_dns_support   = true
   enable_dns_hostnames = true
+  enable_dns_support   = true
 
   tags = {
-    Name        = -vpc
+    Name        = "${var.project_name}-vpc"
     Environment = var.environment
   }
 }
 
-resource aws_internet_gateway ecs_igw {
+# Internet Gateway
+resource "aws_internet_gateway" "ecs_igw" {
   vpc_id = aws_vpc.ecs_vpc.id
 
   tags = {
-    Name = -igw
+    Name        = "${var.project_name}-igw"
+    Environment = var.environment
   }
 }
 
-resource aws_subnet public_subnet_1 {
+# Public Subnet 1 (AZ 1)
+resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.ecs_vpc.id
   cidr_block              = var.public_subnet_1_cidr
-  availability_zone       = a
+  availability_zone       = "${var.aws_region}a"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = -public-1a
+    Name        = "${var.project_name}-public-subnet-1"
+    Environment = var.environment
   }
 }
 
-resource aws_subnet public_subnet_2 {
+# Public Subnet 2 (AZ 2)
+resource "aws_subnet" "public_subnet_2" {
   vpc_id                  = aws_vpc.ecs_vpc.id
   cidr_block              = var.public_subnet_2_cidr
-  availability_zone       = b
+  availability_zone       = "${var.aws_region}b"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = -public-1b
+    Name        = "${var.project_name}-public-subnet-2"
+    Environment = var.environment
   }
 }
 
-resource aws_route_table public_rt {
+# Public Route Table
+resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.ecs_vpc.id
 
   route {
-    cidr_block = 0.0.0.0/0
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.ecs_igw.id
   }
 
   tags = {
-    Name = -public-rt
+    Name        = "${var.project_name}-public-rt"
+    Environment = var.environment
   }
 }
 
-resource aws_route_table_association public_assoc_1 {
+# Route Table Associations
+resource "aws_route_table_association" "assoc_subnet_1" {
   subnet_id      = aws_subnet.public_subnet_1.id
   route_table_id = aws_route_table.public_rt.id
 }
 
-resource aws_route_table_association public_assoc_2 {
+resource "aws_route_table_association" "assoc_subnet_2" {
   subnet_id      = aws_subnet.public_subnet_2.id
   route_table_id = aws_route_table.public_rt.id
 }

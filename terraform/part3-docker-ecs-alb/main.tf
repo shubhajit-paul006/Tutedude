@@ -1,26 +1,22 @@
-﻿# ========================================================
-# Terraform Part 3: Main Provider & S3 Remote State (main.tf & backend.tf)
-# ========================================================
-
 terraform {
-  required_version = >= 1.5.0
+  required_version = ">= 1.5.0"
   required_providers {
     aws = {
-      source  = hashicorp/aws
-      version = ~> 5.0
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
     }
   }
 
-  # S3 Remote State & DynamoDB Locking
-  backend s3 {
-    bucket         = tutedude-devops-terraform-state-2026
-    key            = ecs-docker/terraform.tfstate
-    region         = ap-south-1
-    dynamodb_table = terraform-lock-table
+  # Production S3 Remote State with DynamoDB State Locking (Configurable)
+  backend "s3" {
+    bucket         = "tutedude-terraform-state-prod-shubhajit"
+    key            = "ecs-fargate/terraform.tfstate"
+    region         = "ap-south-1"
+    dynamodb_table = "tutedude-terraform-lock-prod"
     encrypt        = true
   }
 }
 
-provider aws {
+provider "aws" {
   region = var.aws_region
 }

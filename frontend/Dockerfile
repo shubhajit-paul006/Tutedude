@@ -1,16 +1,22 @@
-﻿FROM node:20-alpine
+# Stage 1: Build & Production
+FROM node:20-alpine
 
-WORKDIR /usr/src/app
+# Set working directory
+WORKDIR /app
 
+# Copy package files and install production dependencies
 COPY package*.json ./
+RUN npm ci --only=production
 
-RUN npm install --production
-
+# Copy application source code
 COPY . .
 
+# Expose Node.js application port
 EXPOSE 3000
 
-ENV PORT=3000
+# Set default environment variables
 ENV NODE_ENV=production
+ENV PORT=3000
 
-CMD [node, server.js]
+# Start Node.js application
+CMD ["npm", "start"]

@@ -1,54 +1,55 @@
-﻿# ========================================================
-# Terraform Part 2: Separate EC2 Instances (vpc.tf)
-# ========================================================
-
-resource aws_vpc custom_vpc {
+# VPC Definition
+resource "aws_vpc" "custom_vpc" {
   cidr_block           = var.vpc_cidr
-  enable_dns_support   = true
   enable_dns_hostnames = true
+  enable_dns_support   = true
 
   tags = {
-    Name        = -vpc
+    Name        = "${var.project_name}-vpc"
     Environment = var.environment
   }
 }
 
-resource aws_internet_gateway igw {
+# Internet Gateway
+resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.custom_vpc.id
 
   tags = {
-    Name        = -igw
+    Name        = "${var.project_name}-igw"
     Environment = var.environment
   }
 }
 
-resource aws_subnet public_subnet {
+# Public Subnet
+resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.custom_vpc.id
   cidr_block              = var.public_subnet_cidr
-  availability_zone       = a
   map_public_ip_on_launch = true
+  availability_zone       = "${var.aws_region}a"
 
   tags = {
-    Name        = -public-subnet
+    Name        = "${var.project_name}-public-subnet"
     Environment = var.environment
   }
 }
 
-resource aws_route_table public_rt {
+# Route Table for Public Subnet
+resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.custom_vpc.id
 
   route {
-    cidr_block = 0.0.0.0/0
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
 
   tags = {
-    Name        = -public-rt
+    Name        = "${var.project_name}-public-rt"
     Environment = var.environment
   }
 }
 
-resource aws_route_table_association public_assoc {
+# Route Table Association
+resource "aws_route_table_association" "public_assoc" {
   subnet_id      = aws_subnet.public_subnet.id
   route_table_id = aws_route_table.public_rt.id
 }

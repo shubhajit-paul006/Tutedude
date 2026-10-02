@@ -1,24 +1,24 @@
-﻿output instance_id {
- description = ID of the provisioned EC2 instance
- value = aws_instance.fullstack_app.id
+output "instance_id" {
+  description = "EC2 Instance ID"
+  value       = aws_instance.app_server.id
 }
 
-output public_ip {
- description = Public IP address of the EC2 instance
- value = aws_instance.fullstack_app.public_ip
+output "instance_public_ip" {
+  description = "Public IP Address of the EC2 Instance"
+  value       = aws_instance.app_server.public_ip
 }
 
-output frontend_url {
- description = URL to access Express frontend via Nginx
- value = http://
+output "frontend_url" {
+  description = "Public URL for Node.js Frontend Application"
+  value       = "http://${aws_instance.app_server.public_ip}:3000"
 }
 
-output direct_frontend_url {
- description = Direct Node.js Express URL
- value = http://:3000
+output "backend_api_url" {
+  description = "Public URL for Flask Backend API"
+  value       = "http://${aws_instance.app_server.public_ip}:5000/api"
 }
 
-output backend_api_url {
- description = Direct Flask API URL
- value = http://:5000/api
+output "nginx_url" {
+  description = "Public URL accessed via Reverse Proxy"
+  value       = "http://${aws_instance.app_server.public_ip}"
 }
