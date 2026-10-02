@@ -1,0 +1,5 @@
+﻿aws_region = ap-south-1
+project_name = tutedude-fullstack
+environment = production
+instance_type = t2.micro
+admin_cidr = 0.0.0.0/0
